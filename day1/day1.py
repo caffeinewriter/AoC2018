@@ -25,6 +25,6 @@ def part2():
 			freqs.add(freq)
 
 if __name__ == '__main__':
-	print("Advent of Code Day 1:")
+	print("Advent of Code 2018 Day 1:")
 	print("Part 1 - " + str(part1()))
 	print("Part 2 - " + str(part2()))
