@@ -32,14 +32,22 @@ def split_claim(claim):
     sizestr = claim[3].split('x')
     return [int(num), int(startpoint[0]), int(startpoint[1]), int(sizestr[0]), int(sizestr[1])]
 
+
 def determine_overlaps(claim1, claim2):
-    xs1 = set(range(claim1[1], claim1[1] + claim1[3]))
-    xs2 = set(range(claim2[1], claim2[1] + claim2[3]))
-    ys1 = set(range(claim1[2], claim1[2] + claim1[4]))
-    ys2 = set(range(claim2[2], claim2[2] + claim2[4]))
-    if xs1 & xs2 and ys1 & ys2:
+    if (claim1[1] < claim2[1] + claim2[3] and
+        claim1[1] + claim1[3] > claim2[1] and
+        claim1[2] < claim2[2] + claim2[4] and
+        claim1[2] + claim1[4] > claim2[2]):
         return True
     return False
+
+    # xs1 = set(range(claim1[1], claim1[1] + claim1[3]))
+    # xs2 = set(range(claim2[1], claim2[1] + claim2[3]))
+    # ys1 = set(range(claim1[2], claim1[2] + claim1[4]))
+    # ys2 = set(range(claim2[2], claim2[2] + claim2[4]))
+    # if xs1 & xs2 and ys1 & ys2:
+    #     return True
+    # return False
 
 
 def part1():
@@ -48,6 +56,7 @@ def part1():
         for claim in f:
             handle_claim(field, claim)
     return field.overlaps()
+
 
 def part2():
     with open('day3.txt') as f:
@@ -63,6 +72,7 @@ def part2():
                     break
             if not overlaps:
                 return claims[i][0]
+
 
 def part2_alt():
     with open('day3.txt') as f:
@@ -80,6 +90,7 @@ def part2_alt():
                     invalid + [i, j]
             if not overlaps:
                 return claims[i][0]
+
 
 print("Advent of Code 2018 Day 3:")
 print("Part 1 - " + str(part1()))
