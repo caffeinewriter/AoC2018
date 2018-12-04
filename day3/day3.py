@@ -51,7 +51,6 @@ def part1():
 
 def part2():
     with open('day3.txt') as f:
-        invalid = []
         claims = list(map(lambda x: split_claim(x), f.read().splitlines()))
         for i in range(len(claims) - 1):
             elem = claims[i]
@@ -65,6 +64,22 @@ def part2():
             if not overlaps:
                 return claims[i][0]
 
+def part2_alt():
+    with open('day3.txt') as f:
+        invalid = []
+        claims = list(map(lambda x: split_claim(x), f.read().splitlines()))
+        for i in range(len(claims) - 1):
+            elem = claims[i]
+            overlaps = False
+            for j in range(len(claims)):
+                if i == j:
+                    continue
+                if determine_overlaps(claims[i], claims[j]):
+                    overlaps = True
+                if overlaps:
+                    invalid + [i, j]
+            if not overlaps:
+                return claims[i][0]
 
 print("Advent of Code 2018 Day 3:")
 print("Part 1 - " + str(part1()))
