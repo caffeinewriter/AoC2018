@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from collections import Counter
 
 
@@ -16,10 +18,11 @@ def comp_strings(a, b):
     return diff
 
 
-def part1():
+def part_1():
     ex_two = 0
     ex_three = 0
-    with open('day2.txt') as f:
+    with open(Path(os.path.dirname(
+            os.path.realpath(__file__))) / 'day2.txt') as f:
         for idn in f:
             has_two = False
             has_three = False
@@ -37,8 +40,9 @@ def part1():
     return ex_two * ex_three
 
 
-def part2():
-    with open('day2.txt') as f:
+def part_2():
+    with open(Path(os.path.dirname(
+            os.path.realpath(__file__))) / 'day2.txt') as f:
         ordered = sorted(f.read().splitlines())
         commons = [[x, y] for x, y in zip(
             ordered[:-1], ordered[1:]) if comp_strings(x, y) > -1][0]
@@ -46,6 +50,11 @@ def part2():
         return commons[0][:diff_char] + commons[0][diff_char+1:]
 
 
-print("Advent of Code 2018 Day 2:")
-print("Part 1 - " + str(part1()))
-print("Part 2 - " + str(part2()))
+def print_solutions_for_day():
+    print("Advent of Code 2018 Day 2:")
+    print("Part 1 - " + str(part_1()))
+    print("Part 2 - " + str(part_2()))
+
+
+if __name__ == '__main__':
+    print_solutions_for_day()

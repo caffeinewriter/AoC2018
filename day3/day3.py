@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from functools import partial
 from itertools import chain
 
@@ -30,7 +32,8 @@ def split_claim(claim):
     num = claim[0][1:]
     startpoint = claim[2][:-1].split(',')
     sizestr = claim[3].split('x')
-    return [int(num), int(startpoint[0]), int(startpoint[1]), int(sizestr[0]), int(sizestr[1])]
+    return [int(num), int(startpoint[0]), int(startpoint[1]),
+            int(sizestr[0]), int(sizestr[1])]
 
 
 def determine_overlaps(claim1, claim2):
@@ -50,16 +53,18 @@ def determine_overlaps(claim1, claim2):
     # return False
 
 
-def part1():
+def part_1():
     field = Field()
-    with open('day3.txt') as f:
+    with open(Path(os.path.dirname(
+            os.path.realpath(__file__))) / 'day3.txt') as f:
         for claim in f:
             handle_claim(field, claim)
     return field.overlaps()
 
 
-def part2():
-    with open('day3.txt') as f:
+def part_2():
+    with open(Path(os.path.dirname(
+            os.path.realpath(__file__))) / 'day3.txt') as f:
         claims = list(map(lambda x: split_claim(x), f.read().splitlines()))
         for i in range(len(claims) - 1):
             elem = claims[i]
@@ -75,7 +80,8 @@ def part2():
 
 
 def part2_alt():
-    with open('day3.txt') as f:
+    with open(Path(os.path.dirname(
+            os.path.realpath(__file__))) / 'day3.txt') as f:
         invalid = []
         claims = list(map(lambda x: split_claim(x), f.read().splitlines()))
         for i in range(len(claims) - 1):
@@ -92,6 +98,11 @@ def part2_alt():
                 return claims[i][0]
 
 
-print("Advent of Code 2018 Day 3:")
-print("Part 1 - " + str(part1()))
-print("Part 2 - " + str(part2()))
+def print_solutions_for_day():
+    print("Advent of Code 2018 Day 3:")
+    print("Part 1 - " + str(part_1()))
+    print("Part 2 - " + str(part_2()))
+
+
+if __name__ == '__main__':
+    print_solutions_for_day()

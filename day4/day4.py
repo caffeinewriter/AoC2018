@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from datetime import datetime
 
 
@@ -6,7 +8,8 @@ def create_guard_buckets():
     is_asleep = False
     sleep_time = 0
     guard_buckets = {}
-    with open('day4.txt') as f:
+    with open(Path(os.path.dirname(
+            os.path.realpath(__file__))) / 'day4.txt') as f:
         schedules = sorted(f.read().splitlines())
         for schedule in schedules:
             schedule = schedule.split(' ', 2)
@@ -30,20 +33,27 @@ def create_guard_buckets():
     return guard_buckets
 
 
-def part1():
+def part_1():
     guard_buckets = create_guard_buckets()
     guard_buckets = sorted(guard_buckets.items(),
                            key=lambda x: sum(x[1]), reverse=True)
-    return int(guard_buckets[0][0]) * guard_buckets[0][1].index(max(guard_buckets[0][1]))
+    return int(guard_buckets[0][0]) * guard_buckets[0][1].index(
+        max(guard_buckets[0][1]))
 
 
-def part2():
+def part_2():
     guard_buckets = create_guard_buckets()
     guard_buckets = sorted(guard_buckets.items(),
                            key=lambda x: max(x[1]), reverse=True)
-    return int(guard_buckets[0][0]) * guard_buckets[0][1].index(max(guard_buckets[0][1]))
+    return int(guard_buckets[0][0]) * guard_buckets[0][1].index(
+        max(guard_buckets[0][1]))
 
 
-print("Advent of Code 2018 Day 4:")
-print("Part 1 - " + str(part1()))
-print("Part 2 - " + str(part2()))
+def print_solutions_for_day():
+    print("Advent of Code 2018 Day 4:")
+    print("Part 1 - " + str(part_1()))
+    print("Part 2 - " + str(part_2()))
+
+
+if __name__ == '__main__':
+    print_solutions_for_day()
